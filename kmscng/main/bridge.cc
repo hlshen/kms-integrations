@@ -192,6 +192,7 @@ absl::Status OpenKey(__inout NCRYPT_PROV_HANDLE hProvider,
   }
   dwFlags = dwFlags & ~NCRYPT_SILENT_FLAG;
   dwFlags = dwFlags & ~NCRYPT_MACHINE_KEY_FLAG;
+  dwFlags = dwFlags & ~NCRYPT_PERSIST_ONLY_FLAG;
   if (dwFlags != 0) {
     return NewInvalidArgumentError(
         absl::StrFormat("unsupported flag specified: %u", dwFlags),

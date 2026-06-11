@@ -36,6 +36,9 @@ namespace cloud_kms::kmscng {
 namespace {
 
 absl::Status ValidateFlags(uint32_t flags) {
+  // Ignore NCRYPT_PERSIST_ONLY_FLAG (0x40000000) as we are a read-only provider.
+  flags &= ~NCRYPT_PERSIST_ONLY_FLAG;
+
   if (flags != 0 && flags != NCRYPT_SILENT_FLAG && flags != BCRYPT_PAD_PKCS1) {
     return NewInvalidArgumentError(
         absl::StrFormat("unsupported flag specified: %u", flags), NTE_BAD_FLAGS,
